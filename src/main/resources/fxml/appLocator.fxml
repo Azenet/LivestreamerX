@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+
+<GridPane alignment="center" hgap="10" prefHeight="177.0" prefWidth="572.0" vgap="10" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.azenet.livestreamerx.AppLocatorController">
+   <columnConstraints>
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+   </rowConstraints>
+   <children>
+      <VBox prefHeight="192.0" prefWidth="571.0">
+         <children>
+            <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="Tools">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Label>
+            <HBox alignment="CENTER" prefHeight="4.0" prefWidth="561.0" spacing="5.0" VBox.vgrow="NEVER">
+               <children>
+                  <Label prefWidth="100.0" text="VLC" HBox.hgrow="ALWAYS" />
+                  <TextField fx:id="vlcField" editable="false" text="Searching" HBox.hgrow="ALWAYS" />
+                  <Button fx:id="vlcChoose" mnemonicParsing="false" onMouseClicked="#onVlcChooseClicked" text="Choose" HBox.hgrow="ALWAYS" />
+                  <Button fx:id="vlcInstall" mnemonicParsing="false" text="Install" HBox.hgrow="ALWAYS" onMouseClicked="#onVlcInstallClicked">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Button>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="4.0" prefWidth="561.0" spacing="5.0">
+               <children>
+                  <Label prefWidth="100.0" text="Livestreamer" HBox.hgrow="ALWAYS" />
+                  <TextField fx:id="livestreamerField" editable="false" text="Searching" HBox.hgrow="ALWAYS" />
+                  <Button fx:id="livestreamerChoose" mnemonicParsing="false" onMouseClicked="#onLivestreamerChooseClicked" text="Choose" HBox.hgrow="ALWAYS" />
+                  <Button fx:id="livestreamerInstall" mnemonicParsing="false" text="Install" HBox.hgrow="ALWAYS" onMouseClicked="#onLivestreamerInstallClicked" />
+               </children>
+            </HBox>
+            <Label alignment="TOP_LEFT" prefHeight="52.0" prefWidth="561.0" text="Click Choose to choose manually the location of a tool. Click Install to install the tool on your computer. Both tools are needed for this program to run. Clicking Install will close the program, reopen it once the tool is installed." wrapText="true">
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </Label>
+            <HBox alignment="BOTTOM_RIGHT" prefHeight="0.0" prefWidth="561.0" spacing="5.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <Button mnemonicParsing="false" text="Re-detect" onMouseClicked="#onRescanClicked" />
+                  <Button fx:id="nextButton" alignment="BOTTOM_RIGHT" disable="true" mnemonicParsing="false" text="Next &gt;" HBox.hgrow="ALWAYS" onMouseClicked="#onNextClicked" />
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+      </VBox>
+   </children>
+</GridPane>
