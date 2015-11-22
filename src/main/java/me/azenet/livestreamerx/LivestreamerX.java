@@ -2,23 +2,31 @@ package me.azenet.livestreamerx;
 
 import com.sun.deploy.uitoolkit.impl.fx.HostServicesFactory;
 import com.sun.javafx.application.HostServicesDelegate;
+import javafx.application.Platform;
 import javafx.stage.Stage;
 import org.apache.commons.io.FileUtils;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
+import javax.net.ssl.HttpsURLConnection;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 public class LivestreamerX {
-	private static LivestreamerX instance               = new LivestreamerX();
-	private        boolean       acceptedLicense        = false;
-	private        Main          application            = null;
-	private        File          licenseFile            = new File("livestreamerx/license-accepted");
-	private        File          vlcFile                = null;
-	private        File          livestreamerFile       = null;
-	private        File          vlcPathConfig          = new File("livestreamerx/vlc-path");
-	private        File          livestreamerPathConfig = new File("livestreamerx/livestreamer-path");
+	private static      LivestreamerX instance               = new LivestreamerX();
+	private             boolean       acceptedLicense        = false;
+	private             Main          application            = null;
+	private             File          licenseFile            = new File("livestreamerx/license-accepted");
+	private             File          vlcFile                = null;
+	private             File          livestreamerFile       = null;
+	private             File          vlcPathConfig          = new File("livestreamerx/vlc-path");
+	private             File          livestreamerPathConfig = new File("livestreamerx/livestreamer-path");
+	public static final String        VERSION                = "1.0.1";
 
 	public File getVlcFile() {
 		return vlcFile;
@@ -213,5 +221,24 @@ public class LivestreamerX {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void checkForUpdates() {
+		(new Thread(() -> {
+			try {
+				URL updateUrl = new URL("https://api.github.com/repos/Azenet/LivestreamerX/releases/latest");
+				HttpsURLConnection hurlc = (HttpsURLConnection) updateUrl.openConnection();
+				BufferedReader in = new BufferedReader(new InputStreamReader(hurlc.getInputStream()));
+				JSONParser p = new JSONParser();
+				JSONObject o = (JSONObject) p.parse(in);
+
+				if (o.containsKey("name") && !o.get("name").equals(LivestreamerX.VERSION)) {
+					Platform.runLater(() -> LivestreamManager.getInstance().getStream().setStatus("New version " + o.get("name") + " is available for download. Go to http://bit.ly/21b36ki to fetch it."));
+				}
+				in.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		})).start();
 	}
 }

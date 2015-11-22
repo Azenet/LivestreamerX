@@ -26,6 +26,8 @@ public class MainController {
 		stream.qualitiesProperty().bind(qualityChoice.itemsProperty());
 		stream.preferredQualityProperty().bind(qualityChoice.valueProperty());
 		status.textProperty().bind(stream.statusProperty());
+
+		LivestreamerX.getInstance().checkForUpdates();
 	}
 
 	public void onLoadQualitiesClicked() {
